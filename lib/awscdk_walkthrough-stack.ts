@@ -7,12 +7,5 @@ export class AwscdkWalkthroughStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const queue = new sqs.Queue(this, 'AwscdkWalkthroughQueue', {
-      visibilityTimeout: cdk.Duration.seconds(300)
-    });
-
-    const topic = new sns.Topic(this, 'AwscdkWalkthroughTopic');
-
-    topic.addSubscription(new subs.SqsSubscription(queue));
   }
 }
