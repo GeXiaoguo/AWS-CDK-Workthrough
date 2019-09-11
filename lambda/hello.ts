@@ -6,3 +6,4 @@ exports.handler = async function(event: any) {
       body: `Hello, CDK! You've hit ${event.path}\n`
     };
   };
+  
