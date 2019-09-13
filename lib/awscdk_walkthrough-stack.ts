@@ -4,6 +4,7 @@ import sqs = require('@aws-cdk/aws-sqs');
 import cdk = require('@aws-cdk/core');
 import lambda = require('@aws-cdk/aws-lambda')
 import apigw = require('@aws-cdk/aws-apigateway')
+import {HitCounter} from './hitcounter';
 
 export class AwscdkWalkthroughStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
@@ -17,6 +18,10 @@ export class AwscdkWalkthroughStack extends cdk.Stack {
      }
     );
 
-    const apigateway = new apigw.LambdaRestApi(this, "Endpoint", {handler: hello});
+    const helloWithCounter = new HitCounter(this, 'HelloHitCounter', {
+      downstream: hello
+    });
+
+    const apigateway = new apigw.LambdaRestApi(this, "Endpoint", {handler: helloWithCounter.handler});
   }
 }
